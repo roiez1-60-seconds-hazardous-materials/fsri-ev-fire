@@ -241,6 +241,9 @@ ul.cl.r li::before{background:var(--red);}
 
 footer{padding:18px 4px 6px;text-align:center;color:var(--muted);font-size:11.5px;}
 footer a{color:var(--muted);}
+.views{display:flex;gap:6px;justify-content:center;align-items:center;color:var(--muted);
+  font-size:11.5px;padding:6px 0 2px;}
+.views b{color:var(--amber);font-weight:800;font-size:12.5px;}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
@@ -359,6 +362,7 @@ footer a{color:var(--muted);}
       <p data-t="o.disp">העמוד הוא תקציר עצמאי בעברית של פרסומי FSRI ואינו קשור אליהם רשמית. כל הנתונים —
       מהדו"ח, מהמאמרים השפיטים ומעדכוני המחקר הרשמיים, המקושרים בלשונית המקורות.</p>
     </div>
+    <div class="views">👁 <b class="vcN">…</b> <span data-t="v.word">צפיות</span></div>
   </section>
 
   <!-- ===== עמוד: הניסויים ===== -->
@@ -672,6 +676,7 @@ footer a{color:var(--muted);}
       נבנה באהבה עבור קהילת החומ"ס הישראלית · <b>60 שניות של חומ"ס</b><br>
       תקציר עצמאי לצורכי לימוד — אינו תחליף לנהלים מחייבים ואינו קשור רשמית ל-FSRI
     </footer>
+    <div class="views">👁 <b class="vcN">…</b> <span data-t="v.word2">צפיות</span></div>
   </section>
 
   </main>
@@ -803,7 +808,8 @@ const EN={
 "m.r2d":"Fire Safety of Batteries and Electric Vehicles · fsri.org",
 "m.r3n":"The scientific article",
 "m.r3d":"Heat exposure from electric vehicle fires · Fire Safety Journal",
-"m.info.cap":"<b>Official FSRI infographic</b> · view-only, all rights belong to FSRI / UL Research Institutes",
+"m.info.cap":"<b>Infographic — the study at a glance</b> · based on the 18-experiment data · view-only (created with NotebookLM; not an official FSRI product)",
+"v.word":"views","v.word2":"views",
 "m.deck.cap":"<b>Slide deck</b> · view-only",
 "m.sec0":"Infographic",
 "m.sec0b":"Slide deck",
@@ -860,7 +866,8 @@ let lang=localStorage.getItem('lang')||'he';
 langBtn.addEventListener('click',()=>{lang=lang==='he'?'en':'he';setLang(lang);});
 
 /* ===== View-only media (infographic / slide deck) ===== */
-const MEDIA={infographic:[],deck:[]};
+const MEDIA={infographic:['media/ev-response-guide.jpg'],
+  deck:Array.from({length:15},(_,i)=>'media/slide-'+String(i+1).padStart(2,'0')+'.jpg')};
 function renderMedia(l){
   const slot=document.getElementById('mediaSlot');
   let h='';
@@ -877,13 +884,16 @@ function renderMedia(l){
   slot.innerHTML=h;
   if(MEDIA.deck.length)wireDeck();
 }
-const HE_MCAP_INFO='<b>אינפוגרפיקה רשמית של FSRI</b> · לצפייה בלבד, כל הזכויות ל-FSRI / UL Research Institutes';
+const HE_MCAP_INFO='<b>אינפוגרפיקה — תמצית המחקר</b> · מבוססת על נתוני 18 הניסויים · לצפייה בלבד (נוצרה בכלי NotebookLM; אינה תוצר רשמי של FSRI)';
+const HE_MCAP_DECK='<b>מצגת — המדריך הטקטי</b> · מבוססת על ממצאי המחקר · לצפייה בלבד (נוצרה בכלי NotebookLM; אינה תוצר רשמי של FSRI)';
+const EN_MCAP_DECK='<b>Slide deck — the tactical guide</b> · based on the study findings · view-only (created with NotebookLM; not an official FSRI product)';
 function deckViewer(l){
   return '<div class="media" id="deckBox"><img id="deckImg" src="'+MEDIA.deck[0]+'" alt="slide" draggable="false">'+
     '<div class="mcap" style="display:flex;align-items:center;gap:10px;">'+
     '<button class="lang" id="dPrev">‹</button>'+
     '<span id="dNum" style="flex:1;text-align:center;direction:ltr;">1 / '+MEDIA.deck.length+'</span>'+
-    '<button class="lang" id="dNext">›</button></div></div>';
+    '<button class="lang" id="dNext">›</button></div>'+
+    '<div class="mcap">'+(l==='en'?EN_MCAP_DECK:HE_MCAP_DECK)+'</div></div>';
 }
 let dIdx=0;
 function wireDeck(){
@@ -894,6 +904,16 @@ function wireDeck(){
   document.getElementById('dNext').addEventListener('click',()=>go(1));
 }
 setLang(lang);
+
+/* ===== View counter (one count per device) ===== */
+try{
+  const seen=localStorage.getItem('fsri-viewed');
+  fetch('https://abacus.jasoncameron.dev/'+(seen?'get':'hit')+'/sixty-sec-hazmat/fsri-ev-fire')
+    .then(r=>r.json()).then(d=>{
+      if(!seen)localStorage.setItem('fsri-viewed','1');
+      if(typeof d.value==='number')document.querySelectorAll('.vcN').forEach(e=>e.textContent=d.value.toLocaleString());
+    }).catch(()=>{});
+}catch(e){}
 </script>
 </body>
 </html>
