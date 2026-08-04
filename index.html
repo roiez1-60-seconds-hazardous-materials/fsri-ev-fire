@@ -138,13 +138,29 @@ h3.sec::after{content:"";flex:1;height:.5px;background:var(--line-2);}
 .chip.g{color:var(--muted);border-color:var(--line-2);background:rgba(255,255,255,.05);}
 
 ul.cl{list-style:none;}
-ul.cl li{padding:8px 0;border-bottom:.5px dashed var(--line);font-size:13px;color:var(--muted);
-  display:flex;gap:9px;align-items:flex-start;}
+ul.cl li{display:block;position:relative;padding:8px 0;padding-inline-start:17px;
+  border-bottom:.5px dashed var(--line);font-size:13px;color:var(--muted);line-height:1.7;}
 ul.cl li:last-child{border-bottom:none;}
-ul.cl li::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;margin-top:7px;}
+ul.cl li::before{content:"";position:absolute;inset-inline-start:0;top:16px;
+  width:7px;height:7px;border-radius:50%;}
 ul.cl.ok li::before{background:var(--green);}
 ul.cl.q li::before{background:var(--amber);}
 ul.cl.r li::before{background:var(--red);}
+
+/* ===== Steps ===== */
+.step{display:flex;gap:11px;padding:10px 0;border-bottom:.5px dashed var(--line);}
+.step:last-of-type{border-bottom:none;}
+.step .n{flex:0 0 auto;width:24px;height:24px;border-radius:50%;margin-top:1px;
+  background:rgba(255,176,46,.12);border:.5px solid rgba(255,176,46,.45);color:var(--amber);
+  font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.step.red .n{background:rgba(255,69,58,.12);border-color:rgba(255,69,58,.45);color:var(--red-soft);}
+.step .tx{flex:1;min-width:0;}
+.step .t{font-size:13.5px;font-weight:700;color:var(--txt);line-height:1.4;margin-bottom:1px;}
+.step .d{font-size:12.5px;color:var(--muted);line-height:1.65;}
+.step .d b{color:var(--txt);font-weight:600;}
+.stepnote{margin-top:10px;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.04);
+  border:.5px solid var(--line);font-size:12px;color:var(--muted);line-height:1.65;}
+.stepnote b{color:var(--amber);font-weight:700;}
 
 .quote{border-right:3px solid var(--amber);background:rgba(255,176,46,.06);
   border-radius:10px;padding:11px 13px;margin:10px 0;font-size:13px;color:var(--txt);font-weight:300;}
@@ -522,21 +538,26 @@ footer a{color:var(--muted);}
       </ul>
     </div>
 
-    <h3 class="sec" data-t="d.sec4">מה קרה כשניסו לכבות</h3>
-    <div class="card">
-      <ul class="cl q" data-t="d.sup">
-        <li><b>כיבוי תא הנוסעים במים עובד — ומהר</b>, ומסלק מיד את עיקר הסיכון התרמי והכימי</li>
-        <li><b>אבל את תאי הסוללה כמעט בלתי אפשרי לקרר:</b> מבנה הרכב מונע קירור יעיל של
-        התאים — גם כשמכוונים את הזרם ישירות לפתחי האוורור או לחורים שנפערו במארז</li>
-        <li><b>ולכן ההמלצה הרשמית: בעירה מבוקרת.</b> אם ניסיון כיבוי ראשוני של הסוללה לא הצליח —
-        מצמצמים את המים להגנת חשיפות ולמניעת הצתה מחדש של תא הנוסעים, ונותנים לסוללה
-        <b>לכלות את עצמה</b></li>
-        <li><b>המספרים:</b> ללא כל התערבות הרכב כולה בפחות מ־90 דקות; בבעירה מבוקרת האירוע
-        נסגר <b>בפחות מ־30 דקות עם כ־2,900 ליטר מים בלבד</b>. הצפה מסיבית של המארז —
-        לא יעילה ולא נחוצה</li>
-        <li>תוסף מקפל (F-500) <b>לא שיפר</b> את ביצועי הכיבוי</li>
-        <li>ואחרי האירוע: <b>סכנת הצתה מחדש ממושכת</b> — ניטור, וגרירה בליווי</li>
-      </ul>
+    <h3 class="sec" data-t="d.sec4">מה קרה כשניסו לכבות — סדר הפעולות שנגזר</h3>
+    <div class="card" data-t="d.sup">
+      <div class="step"><div class="n">1</div><div class="tx">
+        <div class="t">מכבים את תא הנוסעים</div>
+        <div class="d">זרנוק רגיל, מהר. זה מסלק את עיקר הסיכון התרמי והכימי — וחושף אם הסוללה מעורבת.</div>
+      </div></div>
+      <div class="step"><div class="n">2</div><div class="tx">
+        <div class="t">מנסים כיבוי ראשוני של הסוללה</div>
+        <div class="d">לרוב זה לא יצליח: מבנה הרכב מונע קירור יעיל של התאים — גם בכיוון ישיר לפתחי המארז.</div>
+      </div></div>
+      <div class="step"><div class="n">3</div><div class="tx">
+        <div class="t">לא הצליח? עוברים לבעירה מבוקרת</div>
+        <div class="d">מצמצמים מים ל<b>הגנת חשיפות</b> ול<b>מניעת הצתה מחדש של תא הנוסעים</b> — ונותנים לסוללה לכלות את עצמה. כך נסגר אירוע <b>בפחות מ־30 דקות, עם כ־2,900 ליטר בלבד</b>.</div>
+      </div></div>
+      <div class="step red"><div class="n">4</div><div class="tx">
+        <div class="t">מסיימים בזהירות</div>
+        <div class="d">סכנת ההצתה מחדש נמשכת גם אחרי שהאש כבתה — <b>ניטור תרמי</b> וגרירה בליווי.</div>
+      </div></div>
+      <div class="stepnote">ועוד שני ממצאים: ללא התערבות כלל — הרכב כילה בפחות מ־<b>90 דקות</b>;
+      תוסף מקפל (F-500) <b>לא שיפר</b> את ביצועי הכיבוי. הצפה מסיבית של המארז — לא יעילה ולא נחוצה.</div>
     </div>
 
     <h3 class="sec" data-t="d.sec5">בונוס למהנדסי בטיחות אש</h3>
@@ -806,8 +827,8 @@ const EN={
 "d.jets":"In thermal runaway, <b>directional flame jets</b> erupt from the battery pack — sometimes sideways, well beyond the vehicle body. Measurements showed jet-related heat-flux peaks reaching <b>7.9% to 100% of the maximum flux of the entire fire</b> — before the vehicle itself was fully involved. That is a dangerous surprise for anyone approaching a vehicle that is \"only smoking\". The study captured this behavior at high spatial resolution <b>for the first time anywhere</b>.",
 "d.sec3":"The smoke — and what's in it",
 "d.smoke":"<li><b>Zero visibility</b> — both vehicle types produce dense, sooty smoke; even in the lab with active exhaust, visibility dropped to nothing</li><li><b>Fluoride particulate</b> — measured at higher levels than HF gas, and greater in EV fires than in gasoline fires</li><li><b>Heavy metals</b> — nickel, manganese, cobalt and lithium were found at significantly higher levels in EV smoke</li><li><b>And the similarity:</b> acid gases, VOCs, PAHs and PFAS — only minor differences between the two vehicle types. Gasoline-vehicle smoke is hazardous material in every sense too</li>",
-"d.sec4":"What happened when they tried to extinguish",
-"d.sup":"<li><b>Knocking down the passenger compartment with water works — fast</b>, and immediately removes most of the thermal and chemical hazard</li><li><b>But the battery cells are nearly impossible to cool:</b> vehicle construction prevents effective cooling — even when hose streams target vent holes or damage holes in the pack directly</li><li><b>Hence the official recommendation: controlled burnout.</b> If an initial extinguishment attempt on the battery fails — limit water to exposure protection and preventing cabin reignition, and let the battery <b>burn itself out</b></li><li><b>The numbers:</b> with no intervention at all, burnout takes under 90 minutes; with the controlled-burnout strategy the incident resolved <b>in under 30 minutes with only ~2,900 L (760 gal) of water</b>. Copious water on the pack is both ineffective and unnecessary</li><li>An encapsulating agent (F-500) <b>did not improve</b> suppression performance</li><li>And after the incident: <b>a prolonged reignition hazard</b> — monitoring, and an escorted tow</li>",
+"d.sec4":"What happened when they tried to extinguish — the resulting playbook",
+"d.sup":"<div class=\"step\"><div class=\"n\">1</div><div class=\"tx\"><div class=\"t\">Knock down the passenger compartment</div><div class=\"d\">A conventional hose stream, fast. This removes most of the thermal and chemical hazard — and reveals whether the battery is involved.</div></div></div><div class=\"step\"><div class=\"n\">2</div><div class=\"tx\"><div class=\"t\">Attempt initial battery extinguishment</div><div class=\"d\">It will usually fail: vehicle construction prevents effective cooling of the cells — even with streams aimed directly at pack openings.</div></div></div><div class=\"step\"><div class=\"n\">3</div><div class=\"tx\"><div class=\"t\">Didn't work? Switch to controlled burnout</div><div class=\"d\">Limit water to <b>exposure protection</b> and <b>preventing cabin reignition</b> — and let the battery burn itself out. This resolved the incident <b>in under 30 minutes, with only ~2,900 L (760 gal)</b>.</div></div></div><div class=\"step red\"><div class=\"n\">4</div><div class=\"tx\"><div class=\"t\">Finish carefully</div><div class=\"d\">The reignition hazard persists after the flames are out — <b>thermal monitoring</b> and an escorted tow.</div></div></div><div class=\"stepnote\">Two more findings: with no intervention at all, the vehicle burned out in under <b>90 minutes</b>; an encapsulating agent (F-500) <b>did not improve</b> suppression. Copious water on the pack — ineffective and unnecessary.</div>",
 "d.sec5":"A bonus for fire protection engineers",
 "d.psm":"The common Point Source Model <b>underpredicts</b> peak heat flux — by up to 18.3% even with measured flame heights, and up to 64.5% when flame height is derived from heat release rate. The full dataset of all 18 experiments was published openly for model development and validation.",
 "l.h2":"Insights <span class=\"am\">and Lessons</span>",
