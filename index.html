@@ -244,6 +244,26 @@ footer a{color:var(--muted);}
 .views{display:flex;gap:6px;justify-content:center;align-items:center;color:var(--muted);
   font-size:11.5px;padding:6px 0 2px;}
 .views b{color:var(--amber);font-weight:800;font-size:12.5px;}
+.credit{text-align:center;color:var(--muted);font-size:11.5px;padding:10px 8px 0;}
+.credit a{color:var(--amber);text-decoration:none;font-weight:700;}
+.credit .em{direction:ltr;unicode-bidi:embed;}
+
+/* ===== Compact header & hero on phones ===== */
+@media (max-width:759px){
+  .nav{padding:calc(env(safe-area-inset-top) + 8px) 13px 8px;}
+  .logo{width:34px;height:34px;border-radius:9px;}
+  .brand{gap:8px;}
+  .brand-txt h1{font-size:14px;}
+  .brand-txt .sub{font-size:9.5px;}
+  .live{font-size:9.5px;padding:3px 7px;gap:4px;}
+  .lang{font-size:10px;padding:3px 8px;}
+  .hero{padding:14px;border-radius:20px;}
+  .hero h2{font-size:19px;}
+  .hero p{font-size:12.5px;line-height:1.6;}
+  h2{font-size:20px;}
+  .lead{font-size:12.5px;}
+  .evd svg{max-width:290px;}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
@@ -362,6 +382,7 @@ footer a{color:var(--muted);}
       <p data-t="o.disp">העמוד הוא תקציר עצמאי בעברית של פרסומי FSRI ואינו קשור אליהם רשמית. כל הנתונים —
       מהדו"ח, מהמאמרים השפיטים ומעדכוני המחקר הרשמיים, המקושרים בלשונית המקורות.</p>
     </div>
+    <div class="credit" data-t="credit">עריכה מקצועית: <a href="mailto:roiez1@gmail.com">רועי צוקרמן</a> · מומחה חומ"ס וטב"ק · <a class="em" href="mailto:roiez1@gmail.com">roiez1@gmail.com</a></div>
     <div class="views">👁 <b class="vcN">…</b> <span data-t="v.word">צפיות</span></div>
   </section>
 
@@ -676,6 +697,7 @@ footer a{color:var(--muted);}
       נבנה באהבה עבור קהילת החומ"ס הישראלית · <b>60 שניות של חומ"ס</b><br>
       תקציר עצמאי לצורכי לימוד — אינו תחליף לנהלים מחייבים ואינו קשור רשמית ל-FSRI
     </footer>
+    <div class="credit" data-t="credit2">עריכה מקצועית: <a href="mailto:roiez1@gmail.com">רועי צוקרמן</a> · מומחה חומ"ס וטב"ק · <a class="em" href="mailto:roiez1@gmail.com">roiez1@gmail.com</a></div>
     <div class="views">👁 <b class="vcN">…</b> <span data-t="v.word2">צפיות</span></div>
   </section>
 
@@ -810,6 +832,8 @@ const EN={
 "m.r3d":"Heat exposure from electric vehicle fires · Fire Safety Journal",
 "m.info.cap":"<b>Infographic — the study at a glance</b> · based on the 18-experiment data · view-only (created with NotebookLM; not an official FSRI product)",
 "v.word":"views","v.word2":"views",
+"credit":"Professional editing: <a href=\"mailto:roiez1@gmail.com\">Roie Zukerman</a> · HazMat &amp; CBRN specialist · <a class=\"em\" href=\"mailto:roiez1@gmail.com\">roiez1@gmail.com</a>",
+"credit2":"Professional editing: <a href=\"mailto:roiez1@gmail.com\">Roie Zukerman</a> · HazMat &amp; CBRN specialist · <a class=\"em\" href=\"mailto:roiez1@gmail.com\">roiez1@gmail.com</a>",
 "m.deck.cap":"<b>Slide deck</b> · view-only",
 "m.sec0":"Infographic",
 "m.sec0b":"Slide deck",
