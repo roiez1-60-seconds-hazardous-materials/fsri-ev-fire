@@ -463,7 +463,7 @@ footer a{color:var(--muted);}
       <div class="nm" data-t="e.l2n">הצפת מים</div>
       <p data-t="e.l2p"><b>6–7 דקות של בעירה חופשית</b> לדימוי זמן תגובה של תחנת כיבוי, ואז כיבוי בצוות אמיתי:
       מזנק רב־שימושי בספיקה של <b>כ־570 ליטר לדקה</b>. אחרי כ־10 דקות הרכב <b>הוטה על מתקן הרמה</b>
-      לשיפור הגישה למארז. ניסוי אחד כלל תוסף מקפל (Encapsulator) בריכוז 3%.</p>
+      לשיפור הגישה למארז. ניסוי אחד כלל תוסף כיבוי שעורבב במים (F-500) בריכוז 3%.</p>
     </div>
     <div class="layer" data-n="3">
       <div class="k" data-t="e.l3k">שלב 3 · 4 ניסויים</div>
@@ -557,7 +557,8 @@ footer a{color:var(--muted);}
         <div class="d">סכנת ההצתה מחדש נמשכת גם אחרי שהאש כבתה — <b>ניטור תרמי</b> וגרירה בליווי.</div>
       </div></div>
       <div class="stepnote">ועוד שני ממצאים: ללא התערבות כלל — הרכב כילה בפחות מ־<b>90 דקות</b>;
-      תוסף מקפל (F-500) <b>לא שיפר</b> את ביצועי הכיבוי. הצפה מסיבית של המארז — לא יעילה ולא נחוצה.</div>
+      וגם תוסף כיבוי שעורבב במים (F-500) <b>לא שיפר</b> את ביצועי הכיבוי. הצפה מסיבית של המארז —
+      לא יעילה ולא נחוצה.</div>
     </div>
 
     <h3 class="sec" data-t="d.sec5">בונוס למהנדסי בטיחות אש</h3>
@@ -920,9 +921,12 @@ langBtn.addEventListener('click',()=>{lang=lang==='he'?'en':'he';setLang(lang);}
 
 /* ===== View-only media (infographic / slide deck) ===== */
 const MEDIA={infographic:['media/ev-response-guide.jpg'],
-  deck:Array.from({length:15},(_,i)=>'media/slide-'+String(i+1).padStart(2,'0')+'.jpg')};
+  deck_he:Array.from({length:15},(_,i)=>'media/slide-'+String(i+1).padStart(2,'0')+'.jpg'),
+  deck_en:Array.from({length:15},(_,i)=>'media/slide-en-'+String(i+1).padStart(2,'0')+'.jpg')};
+function curDeck(l){return l==='en'?MEDIA.deck_en:MEDIA.deck_he;}
 function renderMedia(l){
   const slot=document.getElementById('mediaSlot');
+  const deck=curDeck(l);
   let h='';
   if(MEDIA.infographic.length){
     h+='<h3 class="sec">'+(l==='en'?EN['m.sec0']:'אינפוגרפיקה')+'</h3>';
@@ -931,28 +935,29 @@ function renderMedia(l){
          '<div class="mcap">'+(l==='en'?EN['m.info.cap']:HE_MCAP_INFO)+'</div></div>';
     });
   }
-  if(MEDIA.deck.length){
-    h+='<h3 class="sec">'+(l==='en'?EN['m.sec0b']:'מצגת')+'</h3>'+deckViewer(l);
+  if(deck.length){
+    h+='<h3 class="sec">'+(l==='en'?EN['m.sec0b']:'מצגת')+'</h3>'+deckViewer(l,deck);
   }
   slot.innerHTML=h;
-  if(MEDIA.deck.length)wireDeck();
+  if(deck.length)wireDeck(deck);
 }
 const HE_MCAP_INFO='<b>אינפוגרפיקה — תמצית המחקר</b> · מבוססת על נתוני 18 הניסויים · לצפייה בלבד (נוצרה בכלי NotebookLM; אינה תוצר רשמי של FSRI)';
 const HE_MCAP_DECK='<b>מצגת — המדריך הטקטי</b> · מבוססת על ממצאי המחקר · לצפייה בלבד (נוצרה בכלי NotebookLM; אינה תוצר רשמי של FSRI)';
 const EN_MCAP_DECK='<b>Slide deck — the tactical guide</b> · based on the study findings · view-only (created with NotebookLM; not an official FSRI product)';
-function deckViewer(l){
-  return '<div class="media" id="deckBox"><img id="deckImg" src="'+MEDIA.deck[0]+'" alt="slide" draggable="false">'+
+function deckViewer(l,deck){
+  return '<div class="media" id="deckBox"><img id="deckImg" src="'+deck[0]+'" alt="slide" draggable="false">'+
     '<div class="mcap" style="display:flex;align-items:center;gap:10px;">'+
     '<button class="lang" id="dPrev">‹</button>'+
-    '<span id="dNum" style="flex:1;text-align:center;direction:ltr;">1 / '+MEDIA.deck.length+'</span>'+
+    '<span id="dNum" style="flex:1;text-align:center;direction:ltr;">1 / '+deck.length+'</span>'+
     '<button class="lang" id="dNext">›</button></div>'+
     '<div class="mcap">'+(l==='en'?EN_MCAP_DECK:HE_MCAP_DECK)+'</div></div>';
 }
 let dIdx=0;
-function wireDeck(){
+function wireDeck(deck){
+  dIdx=0;
   const img=document.getElementById('deckImg'),num=document.getElementById('dNum');
-  const go=d=>{dIdx=(dIdx+d+MEDIA.deck.length)%MEDIA.deck.length;
-    img.src=MEDIA.deck[dIdx];num.textContent=(dIdx+1)+' / '+MEDIA.deck.length;};
+  const go=d=>{dIdx=(dIdx+d+deck.length)%deck.length;
+    img.src=deck[dIdx];num.textContent=(dIdx+1)+' / '+deck.length;};
   document.getElementById('dPrev').addEventListener('click',()=>go(-1));
   document.getElementById('dNext').addEventListener('click',()=>go(1));
 }
