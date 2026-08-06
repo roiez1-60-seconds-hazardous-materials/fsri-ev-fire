@@ -63,6 +63,30 @@ body{
   .tab:hover{color:var(--txt);}
 }
 
+/* ===== Desktop layout ===== */
+@media (min-width:1100px){
+  .app{max-width:1120px;height:94vh;height:94dvh;}
+  .nav{padding-inline-end:112px;}
+  main{padding:20px 28px 34px;margin-inline-end:96px;}
+  .tabbar{left:auto;right:auto;inset-inline-start:auto;inset-inline-end:0;top:0;bottom:0;
+    width:96px;height:auto;flex-direction:column;justify-content:center;gap:6px;
+    padding:14px 8px;border-top:none;border-inline-start:.5px solid var(--line);border-radius:0;}
+  .tab{flex:0 0 auto;padding:11px 0;border-radius:14px;}
+  .tab.on{background:rgba(255,176,46,.09);}
+  .page.on{columns:2;column-gap:24px;}
+  .page.on>*{break-inside:avoid;}
+  .page.on>h2,.page.on>.lead,.page.on>h3.sec,.page.on>.hero,
+  .page.on>.credit,.page.on>.views,.page.on>footer{column-span:all;}
+  #p-med.page.on{columns:1;max-width:780px;margin:0 auto;}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;column-gap:24px;padding:22px;}
+  .hero .ts{grid-column:1/-1;}
+  .hero h2{grid-column:1;}
+  .hero p{grid-column:1;}
+  .hero .evd{grid-column:2;grid-row:2/span 2;align-self:center;}
+  .evd svg{max-width:400px;}
+  h2{font-size:26px;}
+}
+
 /* ===== Nav ===== */
 .nav{
   position:sticky;top:0;z-index:50;
